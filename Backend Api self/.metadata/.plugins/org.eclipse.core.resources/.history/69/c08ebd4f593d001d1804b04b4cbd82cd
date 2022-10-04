@@ -1,0 +1,1 @@
+insert into product(id,name,price,available_qty) values(12345,'Paracetamol','30',500);

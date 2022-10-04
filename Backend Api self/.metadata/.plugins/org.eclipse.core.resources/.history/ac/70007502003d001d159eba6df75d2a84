@@ -1,0 +1,6 @@
+package com.simplilearn.kitchenStory.entities;
+
+public class ProductAndQty {
+	Product product;
+	Long qty;
+}

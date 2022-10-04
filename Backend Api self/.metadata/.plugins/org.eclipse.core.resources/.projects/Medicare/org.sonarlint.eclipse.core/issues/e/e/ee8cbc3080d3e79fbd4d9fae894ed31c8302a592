@@ -1,0 +1,12 @@
+
+	java:S116"^Rename this field "CreatedDatewithtime" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äæï·úÿÿÿÿHRMINORZ
+CODE_SMELL
+	java:S116"TRename this field "StatusMsg" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ò½ùHŒRMINORZ
+CODE_SMELL
+}
+java:S1128	"ERemove this unused import 'org.springframework.stereotype.Component'.(Ş÷Ñ¸ÿÿÿÿÿ8ˆ¡‰¸¹0H¶RMINORZ
+CODE_SMELL
+Š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤„èìÿÿÿÿÿH‹RMINORZ
+CODE_SMELL
+n	java:S125"<This block of commented-out lines of code should be removed.(Ú°à¬8œŞ½º¹0HîRMAJORZ
+CODE_SMELL

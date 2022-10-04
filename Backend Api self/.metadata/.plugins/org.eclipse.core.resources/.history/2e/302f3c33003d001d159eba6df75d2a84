@@ -1,0 +1,11 @@
+package com.simplilearn.kitchenStory.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
+@Entity
+public class ProductAndQty {
+	@OneToOne
+	Product product;
+	Long qty;
+}

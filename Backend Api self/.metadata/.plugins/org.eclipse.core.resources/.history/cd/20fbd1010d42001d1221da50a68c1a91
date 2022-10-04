@@ -1,0 +1,81 @@
+package com.simplilearn.mediCare.entities;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.data.util.Pair;
+import org.springframework.stereotype.Component;
+
+import com.simplilearn.mediCare.repositories.CartRepo;
+import com.simplilearn.mediCare.user.User1;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+@Component
+@Scope("prototype")
+@Entity
+@Data
+@EqualsAndHashCode(of = {"id","user"})
+@NoArgsConstructor
+public class Order1 {
+	
+	
+	
+	
+	@Autowired
+	@Transient
+	CartRepo cartRepo;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
+	@Autowired
+	@OneToOne(cascade = CascadeType.ALL)
+	private User1 user1;
+	
+	@Transient
+	Cart cart=user1.getCart();
+
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<ProductAndQty> productsAndQty=cart.getProductsAndQty();
+	
+	@UpdateTimestamp
+	private LocalDateTime orderTimeStamp;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	List<Status> orderStatus=new ArrayList<>();
+	
+	public Order1(String Statusmsg){
+		Status status=new Status(Statusmsg);
+		this.orderStatus.add(status);
+		Set<ProductAndQty> productsAndQty1=new HashSet<>();
+		cart.setProductsAndQty(productsAndQty1);
+		cartRepo.save(cart);
+		}
+	public Order1(String Statusmsg,Cart cart){
+		Status status=new Status(Statusmsg);
+		this.orderStatus.add(status);
+		this.productsAndQty=cart.getProductsAndQty();
+		Set<ProductAndQty> productsAndQty1=new HashSet<>();
+		cart.setProductsAndQty(productsAndQty1);
+		cartRepo.save(cart);
+		}
+}

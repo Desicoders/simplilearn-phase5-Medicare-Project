@@ -1,0 +1,5 @@
+package com.simplilearn.kitchenStory.exceptions;
+
+public class UserNotFound {
+
+}

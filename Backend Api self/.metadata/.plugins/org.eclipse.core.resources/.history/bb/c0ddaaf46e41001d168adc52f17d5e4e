@@ -1,0 +1,1 @@
+insert into product(id,name,price,product_vendor,category,available_qty,imageUrl) values(12345,'Paracetamol','30','Net Meds','pain relief',500);

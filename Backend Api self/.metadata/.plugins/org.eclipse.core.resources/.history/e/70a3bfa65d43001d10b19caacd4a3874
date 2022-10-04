@@ -1,0 +1,1 @@
+insert into product(id,name,price,product_vendor,category,available_qty,image_Url) values(12345,'Asprin','30','Net Meds','pain relief',500,'https://images.unsplash.com/photo-1626716493137-b67fe9501e76?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGFyYWNldGFtb2x8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60');

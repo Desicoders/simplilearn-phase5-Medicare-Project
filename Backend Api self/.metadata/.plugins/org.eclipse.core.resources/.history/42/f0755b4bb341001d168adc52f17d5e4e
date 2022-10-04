@@ -1,0 +1,52 @@
+package com.simplilearn.mediCare.user;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.simplilearn.mediCare.entities.Cart;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@Component
+public class User1 {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	String name;
+	@Email
+	String email;
+	@JsonIgnore
+	String Password;
+	String role;
+	public User1(UserPayload userPayload){
+		this.name=userPayload.getName();
+		this.email=userPayload.getEmail();
+		this.Password=userPayload.getPassword();
+		this.role=userPayload.getRole();
+		this.cart=new Cart();
+	}
+	@OneToOne
+	Cart cart;
+	
+	public User1() {
+		UserPayload userPayload=new UserPayload(null, null, null, null);
+		this.name=userPayload.getName();
+		this.email=userPayload.getEmail();
+		this.Password=userPayload.getPassword();
+		this.role=userPayload.getRole();
+		this.cart=new Cart();
+	}
+	
+}

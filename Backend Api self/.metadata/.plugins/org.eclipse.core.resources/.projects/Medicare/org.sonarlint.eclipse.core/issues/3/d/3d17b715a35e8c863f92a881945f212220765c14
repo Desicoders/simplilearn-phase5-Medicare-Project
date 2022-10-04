@@ -1,0 +1,11 @@
+
+n
+java:S1128"6Remove this unused import 'lombok.AllArgsConstructor'.(´œ¾öùÿÿÿÿ8Ù°‚´¹0H¢RMINORZ
+CODE_SMELL
+h
+java:S1128"5Remove this unused import 'lombok.NoArgsConstructor'.(¸¨›8‡Óş·¹0H¯RMINORZ
+CODE_SMELL
+…	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(›…õ´H’RMINORZ
+CODE_SMELL
+~	java:S116!"SRename this field "Password" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğí¢ÍH‘RMINORZ
+CODE_SMELL

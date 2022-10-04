@@ -1,0 +1,190 @@
+package com.simplilearn.mediCare.services;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.data.util.Pair;
+import org.springframework.stereotype.Service;
+
+import com.simplilearn.mediCare.config.ConfigBean;
+import com.simplilearn.mediCare.entities.Cart;
+import com.simplilearn.mediCare.entities.Product;
+import com.simplilearn.mediCare.entities.ProductAndQty;
+import com.simplilearn.mediCare.repositories.CartRepo;
+import com.simplilearn.mediCare.user.User1;
+
+@Service
+@DependsOn("user1")
+public class CartServiceImpl {
+	
+
+	@Autowired
+	UserServiceImpl userServiceImpl;
+	
+	@Autowired
+	User1 user1;
+	@PostConstruct
+	private void sysout1() {
+	System.out.println("user1"); 
+	}
+	
+	Cart cart=user1.getCart();
+
+	@Autowired
+	CartRepo cartRepo;
+	
+	@Autowired
+	ProductServiceImpl productServiceImpl;
+	@Autowired
+	ProductAndQtyServiceImpl productAndQtyServiceImpl;
+	
+	public Set<ProductAndQty> getAllProductsInCart() {
+		return cart.getProductsAndQty();
+	}
+
+	public String deleteProductFromCart(long productId) {
+
+		Set<ProductAndQty> productsAndQty1 = cart.getProductsAndQty().parallelStream()
+				.map(productAndQty ->{
+				if(productAndQty.getProduct().getId() == productId)
+				{
+					Product p= productServiceImpl.get(productId);
+					p.setAvailableQty(p.getAvailableQty()+productAndQty.getQty());
+					productAndQtyServiceImpl.delete(productAndQty);
+
+					
+					productServiceImpl.save(p);
+				}
+				return productAndQty;})
+				.filter(productAndQty->productAndQty.getProduct().getId()!=productId)
+				.collect(Collectors.toSet());
+		cart.setProductsAndQty(productsAndQty1);
+		cart.calculatePrice();
+		cartRepo.save(cart);
+		user1.setCart(cart);
+		userServiceImpl.save(user1);
+		return "Product deleted with product id=" + productId;
+	}
+
+	public String deleteASingleProductQtyFromCart(long productId) {
+		Set<ProductAndQty> productsAndQty1 = cart.getProductsAndQty().parallelStream()
+				.map(productAndQty ->{
+				if(productAndQty.getProduct().getId() == productId)
+				{
+					Product p= productServiceImpl.get(productId);
+					p.setAvailableQty(p.getAvailableQty()+1);
+					productAndQty.setQty(productAndQty.getQty()-1);
+					productAndQty.updateProductAndQtyPrice();
+					productAndQtyServiceImpl.save(productAndQty);
+					
+					productServiceImpl.save(p);
+				}
+				return productAndQty;})
+				.collect(Collectors.toSet());
+		cart.setProductsAndQty(productsAndQty1);
+		cart.calculatePrice();
+		cartRepo.save(cart);
+		user1.setCart(cart);
+		userServiceImpl.save(user1);
+		return "Product Quntity reduced with product id=" + productId;
+	}
+
+	public String addASingleProductQtyFromCart(long productId) {
+		Set<ProductAndQty> productsAndQty1 = cart.getProductsAndQty().parallelStream()
+				.map(productAndQty ->{
+				if(productAndQty.getProduct().getId() == productId)
+				{
+					Product p= productServiceImpl.get(productId);
+					p.setAvailableQty(p.getAvailableQty()-1);
+					productAndQty.setQty(productAndQty.getQty()+1);
+					productAndQty.updateProductAndQtyPrice();
+					productAndQtyServiceImpl.save(productAndQty);
+					
+					productServiceImpl.save(p);
+				}
+				return productAndQty;})
+				.collect(Collectors.toSet());
+		cart.setProductsAndQty(productsAndQty1);
+		cart.calculatePrice();
+		cartRepo.save(cart);
+		user1.setCart(cart);
+		userServiceImpl.save(user1);
+		return "Single Product quantity added with product id=" + productId;
+
+	}
+
+	public Set<ProductAndQty> OrderProducts(long productId)
+	{
+		
+		Set<ProductAndQty> ProductsAndQty=cart.getProductsAndQty();
+		Product product=productServiceImpl.get(productId);
+		product.setAvailableQty(product.getAvailableQty()-1);
+		ProductAndQty productAndQty;
+		if(checkIfCurrentProductExistsinCart(productId, cart))
+		{
+			productAndQty =cart.getProductsAndQty().stream().filter(pAndq->pAndq.getProduct().getId()==productId).findFirst().get();
+			productAndQty.setQty(productAndQty.getQty()+1);
+			ProductsAndQty.parallelStream().forEach
+			(pAndQ->{
+			if(pAndQ.getProduct().getId()==productId)
+				{pAndQ=productAndQty;}
+				}
+			);
+			}
+		else {
+			productAndQty=new ProductAndQty(product);
+			ProductsAndQty.add(productAndQty);
+		}
+	
+		cart.setProductsAndQty(ProductsAndQty);
+		productAndQty.updateProductAndQtyPrice();
+		productAndQtyServiceImpl.save(productAndQty);
+		productServiceImpl.save(product);
+		cart.calculatePrice();
+		cartRepo.save(cart);
+		user1.setCart(cart);
+		userServiceImpl.save(user1);
+		return getAllProductsInCart();
+	}
+	public Boolean checkIfCurrentProductExistsinCart(Long productId,Cart cart)
+	{
+		return cart.getProductsAndQty().stream().anyMatch(pAndc->pAndc.getProduct().getId()==productId);
+	}
+	
+	public Set<ProductAndQty> OrderProducts(long productId,long qty)
+	{
+		
+		Set<ProductAndQty> ProductsAndQty=cart.getProductsAndQty();
+		Product product=productServiceImpl.get(productId);
+		product.setAvailableQty(product.getAvailableQty()-qty);
+		ProductAndQty productAndQty;
+		if(checkIfCurrentProductExistsinCart(productId, cart))
+		{
+			productAndQty =cart.getProductsAndQty().stream().filter(pAndq->pAndq.getProduct().getId()==productId).findFirst().get();
+			productAndQty.setQty(productAndQty.getQty()+qty);
+			ProductsAndQty.parallelStream().forEach
+			(pAndQ->{
+			if(pAndQ.getProduct().getId()==productId)
+				{pAndQ=productAndQty;}
+				}
+			);
+			}
+		else {
+			productAndQty=new ProductAndQty(product,qty);
+			ProductsAndQty.add(productAndQty);
+		}
+	
+		cart.setProductsAndQty(ProductsAndQty);
+		productAndQtyServiceImpl.save(productAndQty);
+		productServiceImpl.save(product);
+		cart.calculatePrice();
+		cartRepo.save(cart);
+		user1.setCart(cart);
+		userServiceImpl.save(user1);
+		return getAllProductsInCart();
+	}
+}

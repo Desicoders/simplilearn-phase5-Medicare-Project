@@ -1,0 +1,62 @@
+package com.simplilearn.kitchenStory.services;
+
+import java.lang.reflect.Field;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
+
+import com.simplilearn.mediCare.entities.Product;
+import com.simplilearn.mediCare.exceptions.ProductNotFoundException;
+import com.simplilearn.mediCare.repositories.ProductRepo;
+@Service
+public class ProductServiceImpl implements ServiceApi<Product> {
+
+	@Autowired
+	ProductRepo productRepo;
+	
+	@Override
+	public Product get(long id) {
+		return productRepo.findById(id).
+				orElseThrow(()->new ProductNotFoundException("No product with id = "+id));
+	}
+
+	@Override
+	public List<Product> getAll() {
+
+		return productRepo.findAll();
+	}
+
+	@Override
+	public Product save(Product obj) {
+
+		return productRepo.save(obj);
+	}
+
+	@Override
+	public String delete(long id) {
+		productRepo.deleteById(id);
+		return "Product deleted with id ="+id;
+	}
+
+	@Override
+	public String delete(Product obj) {
+		productRepo.delete(obj);
+		return "Product deleted with id ="+obj.getId();
+	}
+
+	@Override
+	public Product update(long id, String FieldName, Object Value) {
+
+		Product p=get(id);
+		Field field=ReflectionUtils.findField(p.getClass(), FieldName);
+		field.setAccessible(true);
+		ReflectionUtils.setField(field, p, Value);
+		productRepo.save(p);
+		return p;
+	
+		
+	}
+
+}

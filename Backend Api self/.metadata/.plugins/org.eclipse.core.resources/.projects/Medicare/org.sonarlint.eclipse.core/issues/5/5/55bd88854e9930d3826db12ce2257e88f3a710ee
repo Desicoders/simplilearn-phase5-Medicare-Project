@@ -1,0 +1,8 @@
+
+…	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(›…õ´HòRMINORZ
+CODE_SMELL
+~	java:S116"SRename this field "Password" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğí¢ÍHóRMINORZ
+CODE_SMELL
+z
+java:S1128	"BRemove this unused import 'javax.validation.constraints.NotBlank'.(µã‡ıÿÿÿÿ8’±¢³¹0HøRMINORZ
+CODE_SMELL

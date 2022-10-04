@@ -1,0 +1,21 @@
+package com.simplilearn.kitchenStory.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProductAndQty {
+	@Id
+	Long id;
+	@OneToOne
+	Product product;
+	Long qty;
+}

@@ -1,0 +1,23 @@
+package com.simplilearn.mediCare.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+
+import com.simplilearn.mediCare.entities.Cart;
+import com.simplilearn.mediCare.user.User1;
+
+@Configuration
+@Import(ServiceContextConfig.InnerConfig.class)
+public class ConfigBean {
+	@Configuration
+    static class InnerConfig { 
+	@Bean("User12")
+	User1 getUser1()
+	{
+		User1 user1=new User1();
+		user1.setCart(new Cart());
+		return user1;
+	}
+
+}

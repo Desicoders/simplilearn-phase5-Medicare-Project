@@ -1,0 +1,5 @@
+package com.simplilearn.mediCare.entities;
+
+public class CartAndAddress {
+
+}

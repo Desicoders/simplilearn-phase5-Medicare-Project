@@ -1,0 +1,33 @@
+package com.simplilearn.mediCare.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Address {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	Long id;
+	
+	private String streetNo;
+	private String houseNo;
+	private String FloorNo;
+	private String locality;
+	private String district;
+	private String city;
+	private String state;
+	private int pincode;
+	private String country;
+	
+	
+
+}

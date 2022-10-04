@@ -1,0 +1,107 @@
+package com.simplilearn.kitchenStory.services;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
+import org.springframework.stereotype.Service;
+
+import com.simplilearn.kitchenStory.entities.Cart;
+import com.simplilearn.kitchenStory.entities.Product;
+import com.simplilearn.kitchenStory.entities.ProductAndQty;
+import com.simplilearn.kitchenStory.repositories.CartRepo;
+
+@Service
+public class CartServiceImpl {
+
+	@Autowired
+	Cart cart;
+
+	@Autowired
+	CartRepo cartRepo;
+	
+	@Autowired
+	ProductServiceImpl productServiceImpl;
+	@Autowired
+	ProductAndQtyServiceImpl productAndQtyServiceImpl;
+	
+	public Set<ProductAndQty> getAllProductsinCart() {
+		return cart.getProductsAndQty();
+	}
+
+	public String deleteProductFromCart(long productId) {
+
+		Set<ProductAndQty> productsAndQty1 = cart.getProductsAndQty().parallelStream()
+				.map(productAndQty ->{
+				if(productAndQty.getProduct().getId() == productId)
+				{
+					Product p= productServiceImpl.get(productId);
+					p.setAvailableQty(p.getAvailableQty()+productAndQty.getQty());
+					productAndQtyServiceImpl.delete(productAndQty);
+					
+					productServiceImpl.save(p);
+				}
+				return productAndQty;})
+				.filter(productAndQty->productAndQty.getProduct().getId()!=productId)
+				.collect(Collectors.toSet());
+		cart.setProductsAndQty(productsAndQty1);
+		cartRepo.save(cart);
+		return "Product deleted with product id=" + productId;
+	}
+
+	public String deleteASingleProductQtyFromCart(long productId) {
+		Set<ProductAndQty> productsAndQty1 = cart.getProductsAndQty().parallelStream()
+				.map(productAndQty ->{
+				if(productAndQty.getProduct().getId() == productId)
+				{
+					Product p= productServiceImpl.get(productId);
+					p.setAvailableQty(p.getAvailableQty()+1);
+					productAndQty.setQty(productAndQty.getQty()-1);
+					productAndQtyServiceImpl.save(productAndQty);
+					
+					productServiceImpl.save(p);
+				}
+				return productAndQty;})
+				.collect(Collectors.toSet());
+		cart.setProductsAndQty(productsAndQty1);
+		cartRepo.save(cart);
+		return "Product Quntity reduced with product id=" + productId;
+	}
+
+	public String addASingleProductQtyFromCart(long productId) {
+		Set<ProductAndQty> productsAndQty1 = cart.getProductsAndQty().parallelStream()
+				.map(productAndQty ->{
+				if(productAndQty.getProduct().getId() == productId)
+				{
+					Product p= productServiceImpl.get(productId);
+					p.setAvailableQty(p.getAvailableQty()-1);
+					productAndQty.setQty(productAndQty.getQty()+1);
+					productAndQtyServiceImpl.save(productAndQty);
+					
+					productServiceImpl.save(p);
+				}
+				return productAndQty;})
+				.collect(Collectors.toSet());
+		cart.setProductsAndQty(productsAndQty1);
+		cartRepo.save(cart);
+		return "Single Product quantity added with product id=" + productId;
+
+	}
+
+	public Set<ProductAndQty> OrderProducts(long productId)
+	{
+		
+		Set<ProductAndQty> ProductsAndQty=cart.getProductsAndQty();
+		Product product=productServiceImpl.get(productId);
+		product.setAvailableQty(product.getAvailableQty()-1);
+		ProductAndQty productAndQty=new ProductAndQty(product);
+		ProductsAndQty.add(productAndQty);
+		cart.setProductsAndQty(ProductsAndQty);
+		productAndQtyServiceImpl.save(productAndQty);
+		productServiceImpl.save(product);
+		cartRepo.save(cart);
+		return getAllProductsinCart();
+	}
+
+}

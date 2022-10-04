@@ -1,0 +1,17 @@
+package com.simplilearn.mediCare.config;
+
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.Bean;
+
+import com.simplilearn.mediCare.user.User1;
+//
+//@SpringBootConfiguration
+//public class ConfigBean {
+//	@Bean
+//	User1 getUser1()
+//	{
+//		User1 user1;
+//		return user1;
+//	}
+//
+//}

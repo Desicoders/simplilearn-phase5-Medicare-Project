@@ -1,0 +1,24 @@
+
+p
+java:S1128"?Remove this unused import 'org.springframework.data.util.Pair'.(¾úŸ˜øÿÿÿÿHÈRMINORZ
+CODE_SMELL
+~	java:S100r"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·…ü«üÿÿÿÿHÊRMINORZ
+CODE_SMELL
+|	java:S117u"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ÆÓ¶HËRMINORZ
+CODE_SMELL
+…	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‡‡ÔïHÌRMINORZ
+CODE_SMELL
+z	java:S100˜"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ö¤ÒHÍRMINORZ
+CODE_SMELL
+}	java:S117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ÆÓ¶HÎRMINORZ
+CODE_SMELL
+b
+java:S5411y"*Use the primitive boolean expression here.(¦¬·ûÿÿÿÿ8äÔç¶¹0HÏRMINORZ
+CODE_SMELL
+c
+java:S5411Ÿ"*Use the primitive boolean expression here.(¦¬·ûÿÿÿÿ8äÔç¶¹0HÒRMINORZ
+CODE_SMELL
+‚
+java:S3655¡"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(âßşüÿÿÿÿ8äÔç¶¹0HÕRMAJORZBUG
+
+java:S3655{"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(âßşüÿÿÿÿ8äÔç¶¹0HÖRMAJORZBUG

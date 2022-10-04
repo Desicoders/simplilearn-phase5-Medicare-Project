@@ -1,0 +1,16 @@
+
+Š
+java:S22936"YReplace the type specification in this constructor call with the diamond operator ("<>").(½À¶òûÿÿÿÿHºRMINORZ
+CODE_SMELL
+Ž
+java:S1488>"\Immediately return this expression instead of assigning it to the temporary variable "cart".(³¼•g8€ÎÕ¶¹0H¼RMINORZ
+CODE_SMELL
+Š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(­â‰“þÿÿÿÿH¹RMINORZ
+CODE_SMELL
+‘
+java:S2293M"YReplace the type specification in this constructor call with the diamond operator ("<>").(ˆ÷¯ßùÿÿÿÿ8Ú¢Â·¹0HìRMINORZ
+CODE_SMELL
+…	java:S100:"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Êï­¢ùÿÿÿÿ8€ÎÕ¶¹0H¿RMINORZ
+CODE_SMELL
+y
+java:S4684C"@Replace this persistent entity with a simple POJO or DTO object.(ŠïÐð8ïÉŠ·¹0HáRCRITICALZVULNERABILITY

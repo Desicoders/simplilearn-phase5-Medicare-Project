@@ -1,0 +1,5 @@
+package com.simplilearn.mediCare.user;
+
+public class Login {
+
+}

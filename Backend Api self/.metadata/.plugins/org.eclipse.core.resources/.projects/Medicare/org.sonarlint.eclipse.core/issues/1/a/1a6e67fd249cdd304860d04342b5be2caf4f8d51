@@ -1,0 +1,21 @@
+
+Š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤„èìÿÿÿÿÿHüRMINORZ
+CODE_SMELL
+c
+java:S1128"7Remove this unused import 'javax.persistence.OneToOne'.(Ø½ïâHıRMINORZ
+CODE_SMELL
+m
+java:S1128"BRemove this unused import 'javax.validation.constraints.NotEmpty'.(ÿÿörHÿRMINORZ
+CODE_SMELL
+p
+java:S1128"?Remove this unused import 'org.springframework.data.util.Pair'.(¾úŸ˜øÿÿÿÿHRMINORZ
+CODE_SMELL
+v
+java:S1128"ERemove this unused import 'org.springframework.stereotype.Component'.(Ş÷Ñ¸ÿÿÿÿÿHƒRMINORZ
+CODE_SMELL
+’
+java:S1128"aRemove this unused import 'com.fasterxml.jackson.databind.introspect.AnnotationIntrospectorPair'.(•ÍùúÿÿÿÿH…RMINORZ
+CODE_SMELL
+q
+java:S1128"@Remove this unused import 'com.simplilearn.mediCare.user.User1'.(ÆÍóùÿÿÿÿH‡RMINORZ
+CODE_SMELL

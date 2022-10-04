@@ -1,0 +1,4 @@
+From openjdk:17
+EXPOSE 8088
+Add target/springjpademoproj-0.0.1-SNAPSHOT.war springjpademoproj-0.0.1-SNAPSHOT.war
+ENTRYPOINT [ "java","-jar","/springjpademoproj-0.0.1-SNAPSHOT.war" ]
